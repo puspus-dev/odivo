@@ -5,7 +5,7 @@ const { MongoClient } = require('mongodb');
 const httpServer = createServer();
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.NEXTAUTH_URL || "http://localhost:3000",
+    origin: process.env.NEXTAUTH_URL || process.env.FRONTEND_URL || "http://localhost:3000",
     methods: ["GET", "POST"]
   }
 });
@@ -226,7 +226,7 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = process.env.SOCKET_PORT || 3001;
+const PORT = process.env.PORT || process.env.SOCKET_PORT || 3001;
 httpServer.listen(PORT, () => {
   console.log(`Socket.io server running on port ${PORT}`);
 });
